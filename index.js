@@ -69,8 +69,6 @@ server.post("/auth/register", (req, res) => {
     email,
     password,
     confirmPassword,
-    // phoneNumber,
-    // DOB,
     gender,
   } = req.body;
 
@@ -106,29 +104,6 @@ server.post("/auth/register", (req, res) => {
   }
 
 
-  // if ( !phoneNumber) {
-  //   res.status(400).json({ message: 'Phone number are required' });
-  //   return;
-  // }
-
-  // const phoneRegex = /^\d{10}$/;
-  // if (!phoneNumber.toString().match(phoneRegex)) {
-  //   res
-  //     .status(400)
-  //     .json({ message: "Phone number are required. Expected 10-digit number" });
-  //   return;
-  // }
-  // // Validate DOB format (MM-DD-YYYY)
-  // const dobRegex = /^\d{2}-\d{2}-\d{4}$/;
-  // if (!DOB.match(dobRegex)) {
-  //   res.status(400).json({ message: "DOB are required" });
-  //   return;
-  // }
-
-  // if ( !DOB) {
-  //   res.status(400).json({ message: 'DOB are required' });
-  //   return;
-  // }
 
 
   const existingUser = findUserByEmail(email);
@@ -137,11 +112,6 @@ server.post("/auth/register", (req, res) => {
     res.status(400).json({ message: "Email already exists" });
     return;
   }
-  // console.log("USERNOTFOUND", existingUser);
-  // if (isExistingUser(email)) {
-  //   res.status(400).json({ message: 'User already exists' });
-  //   return;
-  // }
 
   // Hash the password
   const saltRounds = 10;
@@ -157,8 +127,6 @@ server.post("/auth/register", (req, res) => {
       Lname,
       email,
       confirmPassword: hash,
-      // phoneNumber,
-      // DOB,
       gender,
       password: hash, // Store the hashed password
     };
@@ -166,7 +134,9 @@ server.post("/auth/register", (req, res) => {
     router.db.get("users").push(newUser).write();
 
     // const token = createToken({ id: newUser.id, email, name });
-    res.status(200).json(JSON.parse( {message: "Signup successful"} ));
+    // res.status(200).json(JSON.parse( {message: "Signup successful"} ));
+    res.status(200).json({ message: "Signup successful" });
+
 
   });
 });
