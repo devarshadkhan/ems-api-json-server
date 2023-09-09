@@ -1,14 +1,6 @@
 {
   "users": [
-    {
-      "id": 1694285290620,
-      "Fname": "Arshad",
-      "Lname": "Khan New",
-      "email": "wsssgmail.com",
-      "confirmPassword": "$2b$10$iubiZzXxo2HirVD0P5t/W.RE8XAw2J3UFqWZFvfildwEGgeZohOb6",
-      "gender": "male",
-      "password": "$2b$10$iubiZzXxo2HirVD0P5t/W.RE8XAw2J3UFqWZFvfildwEGgeZohOb6"
-    }
+   
   ],
   "posts": [
     {
