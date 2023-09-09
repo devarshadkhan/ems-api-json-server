@@ -1,0 +1,35 @@
+{
+  "users": [
+    {
+      "id": 1694285290620,
+      "Fname": "Arshad",
+      "Lname": "Khan New",
+      "email": "wsssgmail.com",
+      "confirmPassword": "$2b$10$iubiZzXxo2HirVD0P5t/W.RE8XAw2J3UFqWZFvfildwEGgeZohOb6",
+      "gender": "male",
+      "password": "$2b$10$iubiZzXxo2HirVD0P5t/W.RE8XAw2J3UFqWZFvfildwEGgeZohOb6"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "title": "First Post",
+      "content": "Lorem ipsum dolor sit amet."
+    },
+    {
+      "id": 2,
+      "title": "Second Post",
+      "content": "Ut enim ad minim veniam."
+    },
+    {
+      "id": 3,
+      "title": "Third Post",
+      "content": "Duis aute irure dolor in reprehenderit."
+    },
+    {
+      "id": 1686544458122,
+      "title": "Fourth Post",
+      "content": "Arshad Khan"
+    }
+  ]
+}
