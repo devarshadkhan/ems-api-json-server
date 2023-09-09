@@ -288,23 +288,24 @@ server.put("/posts/:id", (req, res) => {
     .json({ message: "Post updated successfully", post: existingPost });
 });
 
-server.use((req, res, next) => {
-  if (
-    req.originalUrl === "/auth/login" ||
-    req.originalUrl === "/auth/register" ||
-    req.originalUrl === "/auth/reset-password"
-  ) {
-    next();
-  } else {
-    const token = req.headers.authorization?.split("Bearer ")[1];
-    try {
-      jwt.verify(token, SECRET_KEY);
-      next();
-    } catch {
-      res.status(401).json({ message: "Unauthorized" });
-    }
-  }
-});
+// privacy secure scret key
+// server.use((req, res, next) => {
+//   if (
+//     req.originalUrl === "/auth/login" ||
+//     req.originalUrl === "/auth/register" ||
+//     req.originalUrl === "/auth/reset-password"
+//   ) {
+//     next();
+//   } else {
+//     const token = req.headers.authorization?.split("Bearer ")[1];
+//     try {
+//       jwt.verify(token, SECRET_KEY);
+//       next();
+//     } catch {
+//       res.status(401).json({ message: "Unauthorized" });
+//     }
+//   }
+// });
 
 server.use(router);
 
