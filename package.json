@@ -15,8 +15,6 @@
     "bcrypt": "^5.1.1",
     "json-server": "^0.17.3",
     "json-server-auth": "^2.1.0",
-    "jsonwebtoken": "^9.0.2",
-    "mongodb": "^6.0.0",
-    "mongoose": "^7.5.0"
+    "jsonwebtoken": "^9.0.2"
   }
 }
