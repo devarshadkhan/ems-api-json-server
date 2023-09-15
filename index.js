@@ -1,51 +1,24 @@
-// const jsonServer = require('json-server');
-// const server = jsonServer.create();
-// const router = jsonServer.router('db.json');
-// const middlewares = jsonServer.defaults();
-
-// server.use(middlewares);
-// server.use(router);
-
-// server.listen(3000, () => {
-//   console.log('JSON Server is running');
-// });
-
 const jsonServer = require("json-server");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const server = jsonServer.create();
 const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
-const crypto = require('crypto');
-
-// what is crypto module?
-// crypto module ke sath ham password ko hash kar sakte hai or use database me store kar sakte hai.
-
-//With cryptography in Node.js, you can hash passwords and store them in the database so that data cannot be converted to plain text after it is hashed; it can only be verified. When malicious actors get ahold of your database, they cannot decode the encrypted information.
+const crypto = require("crypto");
 
 const generateSecretKey = () => {
-  return crypto.randomBytes(64).toString('hex');
+  return crypto.randomBytes(64).toString("hex");
 };
 
 const SECRET_KEY = generateSecretKey();
-console.log('SECRET_KEY:', SECRET_KEY);
+console.log("SECRET_KEY:", SECRET_KEY);
 server.use(jsonServer.bodyParser);
 server.use(middlewares);
 const SALT_ROUNDS = 10;
 const port = 8000;
 
-// const SECRET_KEY =
-//   "eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTY4NjQyODg2MSwiaWF0IjoxNjg2NDI4ODYxfQ.bUtjAJH274x2Gv0irh2A0a_tPS9YWvdet0e-TVQ6hBE";
-
 function createToken(payload) {
   return jwt.sign(payload, SECRET_KEY, { expiresIn: "1h" });
-}
-
-function isAuthenticated({ email, password }) {
-  const users = router.db.get("users").value();
-  return users.some(
-    (user) => user.email === email && user.password === password
-  );
 }
 
 function isExistingUser(email) {
@@ -61,50 +34,13 @@ function verifyPassword(password, hashedPassword) {
   return bcrypt.compareSync(password, hashedPassword);
 }
 
-// user signup
 server.post("/auth/register", (req, res) => {
-  const {
-    Fname,
-    Lname,
-    email,
-    password,
-    confirmPassword,
-    gender,
-  } = req.body;
+  const { Fname, Lname, email, password, confirmPassword, gender } = req.body;
 
-  if (!email) {
-    res.status(400).json({ message: "Email are required" });
+  if (!email || !password || !Fname || !Lname || !confirmPassword || !gender) {
+    res.status(400).json({ message: "All fields are required" });
     return;
   }
-  if (!password) {
-    res.status(400).json({ message: "Password are required" });
-    return;
-  }
-  if (!Fname) {
-    res.status(400).json({ message: "First name are required" });
-    return;
-  }
-  if (!Lname) {
-    res.status(400).json({ message: "Last name are required" });
-    return;
-  }
-  if (!confirmPassword) {
-    res.status(400).json({ message: "Confirm password are required" });
-    return;
-  }
-  if (password !== confirmPassword) {
-    res
-      .status(400)
-      .json({ message: "Password and confirmPassword do not match" });
-    return;
-  }
-  if (!gender) {
-    res.status(400).json({ message: "gender are required" });
-    return;
-  }
-
-
-
 
   const existingUser = findUserByEmail(email);
 
@@ -113,9 +49,7 @@ server.post("/auth/register", (req, res) => {
     return;
   }
 
-  // Hash the password
-  const saltRounds = 10;
-  bcrypt.hash(password, saltRounds, (err, hash) => {
+  bcrypt.hash(password, SALT_ROUNDS, (err, hash) => {
     if (err) {
       res.status(500).json({ message: "Failed to create user" });
       return;
@@ -128,33 +62,20 @@ server.post("/auth/register", (req, res) => {
       email,
       confirmPassword: hash,
       gender,
-      password: hash, // Store the hashed password
+      password: hash,
     };
-    console.log("USERINFO", newUser);
+
     router.db.get("users").push(newUser).write();
 
-    // const token = createToken({ id: newUser.id, email, name });
-    // res.status(200).json(JSON.parse( {message: "Signup successful"} ));
     res.status(200).json({ message: "Signup successful" });
-
-
   });
 });
 
-// user login
 server.post("/auth/login", (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
     res.status(400).json({ message: "Email and password are required" });
-    return;
-  }
-  if (!email) {
-    res.status(400).json({ message: "Email  are required" });
-    return;
-  }
-  if (!password) {
-    res.status(400).json({ message: "Password are required" });
     return;
   }
 
@@ -168,26 +89,19 @@ server.post("/auth/login", (req, res) => {
   const passwordMatch = verifyPassword(password, user.password);
 
   if (!passwordMatch) {
-    res.status(401).json({ message: "Invalid password" });
-    return;
-  }
-  if (!email) {
-    res.status(401).json({ message: "Invalid email" });
+    res.status(401).json({ message: "Invalid email or password" });
     return;
   }
 
   const token = createToken({
     id: user.id,
     email: user.email,
-    name: user.name,
+    name: user.Fname + " " + user.Lname,
   });
-  // Show API token and user data in the console
-  console.log("API Token:", token);
 
-  res.status(200).json({ token});
+  res.status(200).json({ token });
 });
 
-// user reset password
 server.post("/auth/reset-password", (req, res) => {
   const { email, newPassword } = req.body;
 
@@ -203,14 +117,12 @@ server.post("/auth/reset-password", (req, res) => {
     return;
   }
 
-  // Hash the new password
   bcrypt.hash(newPassword, SALT_ROUNDS, (err, hashedPassword) => {
     if (err) {
       res.status(500).json({ message: "Password hashing error" });
       return;
     }
 
-    // Update the user's password
     user.password = hashedPassword;
     router.db.write();
 
@@ -218,97 +130,101 @@ server.post("/auth/reset-password", (req, res) => {
   });
 });
 
-// posts POST method
-server.post("/posts", (req, res) => {
-  const { title, content } = req.body;
+server.post("/employee", (req, res) => {
+  const { name, email, PhoneNo, Status, JobType, role } = req.body;
 
-  if (!title || !content) {
-    res.status(400).json({ message: "Title and content are required" });
+  if (!name || !email || !PhoneNo || !Status || !JobType || !role) {
+    res.status(400).json({ message: "All fields are required" });
     return;
   }
 
-  const newPost = {
+  const newUser = {
     id: Date.now(),
-    title,
-    content,
+    name,
+    email,
+    PhoneNo,
+    Status,
+    JobType,
+    role,
   };
 
-  router.db.get("posts").push(newPost).write();
+  router.db.get("employee").push(newUser).write();
 
-  res.status(201).json({ message: "Post created successfully", post: newPost });
+  res
+    .status(201)
+    .json({ message: "Employee created successfully", employee: newUser });
 });
 
-// get All posts
-server.get("/posts", (req, res) => {
-  // const postId = parseInt(req.params.id);
-  const post = router.db.get("posts").value();
+server.get("/employee", (req, res) => {
+  const AllUsers = router.db.get("employee").value();
 
-  if (post) {
-    res.status(200).json(post);
+  if (AllUsers) {
+    res.status(200).json(AllUsers);
   } else {
-    res.status(404).json({ message: "Post not found" });
+    res.status(404).json({ message: "No employees found" });
   }
 });
 
-// get post by id
-server.get("/posts/:id", (req, res) => {
+server.get("/employee/:id", (req, res) => {
   const postId = parseInt(req.params.id);
-  const post = router.db.get("posts").find({ id: postId }).value();
+  const employee = router.db.get("employee").find({ id: postId }).value();
 
-  if (post) {
-    res.status(200).json(post);
+  if (employee) {
+    res.status(200).json(employee);
   } else {
-    res.status(404).json({ message: "Post not found" });
+    res.status(404).json({ message: "Employee not found" });
   }
 });
 
-// update post
-server.put("/posts/:id", (req, res) => {
+server.put("/employee/:id", (req, res) => {
   const postId = parseInt(req.params.id);
-  const { title, content } = req.body;
+  const { name, email, PhoneNo, Status, JobType, role } = req.body;
 
-  if (!title || !content) {
-    res.status(400).json({ message: "Title and content are required" });
+  if (!name || !email || !PhoneNo || !Status || !JobType || !role) {
+    res.status(400).json({ message: "All fields are required" });
     return;
   }
 
-  const existingPost = router.db.get("posts").find({ id: postId }).value();
+  const existingEmployee = router.db
+    .get("employee")
+    .find({ id: postId })
+    .value();
 
-  if (!existingPost) {
-    res.status(404).json({ message: "Post not found" });
+  if (!existingEmployee) {
+    res.status(404).json({ message: "Employee not found" });
     return;
   }
 
-  existingPost.title = title;
-  existingPost.content = content;
+  existingEmployee.name = name;
+  existingEmployee.email = email;
+  existingEmployee.PhoneNo = PhoneNo;
+  existingEmployee.Status = Status;
+  existingEmployee.JobType = JobType;
+  existingEmployee.role = role;
   router.db.write();
 
   res
     .status(200)
-    .json({ message: "Post updated successfully", post: existingPost });
+    .json({
+      message: "Employee updated successfully",
+      employee: existingEmployee,
+    });
 });
 
-// privacy secure scret key
-// server.use((req, res, next) => {
-//   if (
-//     req.originalUrl === "/auth/login" ||
-//     req.originalUrl === "/auth/register" ||
-//     req.originalUrl === "/auth/reset-password"
-//   ) {
-//     next();
-//   } else {
-//     const token = req.headers.authorization?.split("Bearer ")[1];
-//     try {
-//       jwt.verify(token, SECRET_KEY);
-//       next();
-//     } catch {
-//       res.status(401).json({ message: "Unauthorized" });
-//     }
-//   }
-// });
+server.delete("/employee/:id", (req, res) => {
+  const postId = parseInt(req.params.id);
+  const employee = router.db.get("employee").find({ id: postId }).value();
 
-server.use(router);
+  if (!employee) {
+    res.status(404).json({ message: "Employee not found" });
+    return;
+  }
+
+  router.db.get("employee").remove({ id: postId }).write();
+
+  res.status(200).json({ message: "Employee deleted successfully" });
+});
 
 server.listen(port, () => {
-  console.log(`JSON Server with authentication is running ${port}`);
+  console.log(`JSON Server with authentication is running on port ${port}`);
 });

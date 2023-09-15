@@ -1,27 +1,14 @@
 {
-  "users": [
-   
-  ],
-  "posts": [
+  "users": [],
+  "employee": [
     {
-      "id": 1,
-      "title": "First Post",
-      "content": "Lorem ipsum dolor sit amet."
-    },
-    {
-      "id": 2,
-      "title": "Second Post",
-      "content": "Ut enim ad minim veniam."
-    },
-    {
-      "id": 3,
-      "title": "Third Post",
-      "content": "Duis aute irure dolor in reprehenderit."
-    },
-    {
-      "id": 1686544458122,
-      "title": "Fourth Post",
-      "content": "Arshad Khan"
+      "id": 1694812636699,
+      "name": "SRK",
+      "email": "srk@gmail.com",
+      "PhoneNo": "787878787",
+      "Status": "active",
+      "JobType": "Full Time",
+      "role": "Actor, Business Mam"
     }
   ]
 }
