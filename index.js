@@ -5,11 +5,22 @@ const server = jsonServer.create();
 const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
 const crypto = require("crypto");
-
+const multer = require('multer');
 const generateSecretKey = () => {
   return crypto.randomBytes(64).toString("hex");
 };
+// Configure multer to specify where to store uploaded images
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); // Set the upload directory
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + '-' + file.originalname);
+  },
+});
 
+const upload = multer({ storage: storage });
 const SECRET_KEY = generateSecretKey();
 console.log("SECRET_KEY:", SECRET_KEY);
 server.use(jsonServer.bodyParser);
@@ -137,6 +148,16 @@ server.post("/employee", (req, res) => {
     res.status(400).json({ message: "All fields are required" });
     return;
   }
+// Get the image file from the request
+const imageFile = req.file;
+
+if (!imageFile) {
+  res.status(400).json({ message: "Image is required" });
+  return;
+}
+
+// Generate the image URL based on where you store the uploaded image
+const imageUrl = `https://emp-api-v2.onrender.com/employee/${imageFile.filename}`;
 
   const newUser = {
     id: Date.now(),
@@ -146,6 +167,7 @@ server.post("/employee", (req, res) => {
     Status,
     JobType,
     role,
+    image: imageUrl,
   };
 
   router.db.get("employee").push(newUser).write();
