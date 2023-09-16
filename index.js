@@ -6,6 +6,7 @@ const router = jsonServer.router("db.json");
 const middlewares = jsonServer.defaults();
 const crypto = require("crypto");
 const multer = require('multer');
+const uuid = require('uuid');
 const generateSecretKey = () => {
   return crypto.randomBytes(64).toString("hex");
 };
@@ -149,17 +150,20 @@ server.post("/employee", (req, res) => {
     return;
   }
 // Get the image file from the request
-const imageFile = req.file;
+// const imageFile = req.file;
 
-if (!imageFile) {
-  res.status(400).json({ message: "Image is required" });
-  return;
-}
+// if (!imageFile) {
+//   res.status(400).json({ message: "Image is required" });
+//   return;
+// }
 
 // Generate the image URL based on where you store the uploaded image
-const imageUrl = `https://emp-api-v2.onrender.com/employee/${imageFile.filename}`;
+// const imageUrl = `https://emp-api-v2.onrender.com/employee/${imageFile.filename}`;
 
+// Generate a new UUID
+const userId = uuid.v4(); // Generates a random UUID
   const newUser = {
+    _id: userId,
     id: Date.now(),
     name,
     email,
@@ -167,7 +171,7 @@ const imageUrl = `https://emp-api-v2.onrender.com/employee/${imageFile.filename}
     Status,
     JobType,
     role,
-    image: imageUrl,
+    // image: imageUrl,
   };
 
   router.db.get("employee").push(newUser).write();

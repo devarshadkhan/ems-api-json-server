@@ -2,22 +2,64 @@
   "users": [],
   "employee": [
     {
-      "id": 1694812636699,
-      "name": "SRK",
-      "email": "srk@gmail.com",
-      "PhoneNo": "787878787",
+      "_id": "bef8fa18-4291-48e0-8ee5-dbfccd63d1f9",
+      "id": 1694818051472,
+      "name": "Arshad khan Pathaan",
+      "email": "arshad@gmail.com",
+      "PhoneNo": "989591345154",
       "Status": "active",
-      "JobType": "Full Time",
-      "role": "Actor, Business Mam"
+      "JobType": "Permanent",
+      "role": "Full Stack Developer & CEO"
     },
     {
-      "id": 1694813179844,
-      "name": "SRK",
-      "email": "srk@gmail.com",
-      "PhoneNo": "787878787",
+      "_id": "ecef7893-c0de-4740-b0af-e349c8f3cb68",
+      "id": 1694819814051,
+      "name": "raqim",
+      "email": "raqim@gmail.com",
+      "PhoneNo": "989591345154",
       "Status": "active",
-      "JobType": "Full Time",
-      "role": "Actor, Business Mam"
+      "JobType": "Permanent",
+      "role": "Full Stack Developer "
+    },
+    {
+      "_id": "7dcdc5df-6b95-4e68-8d4b-78a933d67827",
+      "id": 1694824547342,
+      "name": "Pathaan Dev",
+      "email": "pathaan@gmail.com",
+      "PhoneNo": "989591389",
+      "Status": "active",
+      "JobType": "Permanent",
+      "role": "MERN stack Developer "
+    },
+    {
+      "_id": "5b2ac869-7637-494f-a989-10a7037906ea",
+      "id": 1694826048502,
+      "name": "er Dev",
+      "email": "re@gmail.com",
+      "PhoneNo": "989591389",
+      "Status": "inActive",
+      "JobType": "Permanent",
+      "role": "MERN stack Developer "
+    },
+    {
+      "_id": "d9a502de-5605-4bf4-a6f5-02b459e64876",
+      "id": 1694826871103,
+      "name": "fsdfsd",
+      "email": "fsdfds@gmail.com",
+      "PhoneNo": "3223",
+      "Status": "active",
+      "JobType": "Freelancer",
+      "role": "wkerwekrk"
+    },
+    {
+      "_id": "206a70b5-49c2-4bd0-970a-ae85aa3b878f",
+      "id": 1694827139177,
+      "name": "hdwegfwe",
+      "email": "dhuwehduwe@gmail.com",
+      "PhoneNo": "31273812731",
+      "Status": "inActive",
+      "JobType": "Part Time",
+      "role": "dnweuhd"
     }
   ]
 }
