@@ -17,7 +17,7 @@
       "name": "raqim",
       "email": "raqim@gmail.com",
       "PhoneNo": "989591345154",
-      "Status": "active",
+      "Status": "inActive",
       "JobType": "Permanent",
       "role": "Full Stack Developer "
     },
@@ -60,6 +60,92 @@
       "Status": "inActive",
       "JobType": "Part Time",
       "role": "dnweuhd"
+    },
+    {
+      "_id": "0a7e9c56-90a7-4603-81f6-562b16e5656b",
+      "id": 1694894356371,
+      "name": "dfndfn",
+      "email": "hfjef@gmail.com",
+      "PhoneNo": "7878",
+      "Status": "active",
+      "JobType": "Permanent",
+      "role": "sds"
+    },
+    {
+      "_id": "61f95693-4cd9-4c28-ae92-6fe03a6d767c",
+      "id": 1694894359810,
+      "name": "dfndfn",
+      "email": "hfjef@gmail.com",
+      "PhoneNo": "7878",
+      "Status": "inActive",
+      "JobType": "Permanent",
+      "role": "sds"
+    },
+    {
+      "_id": "443acd0c-ea9f-4471-94ef-8a8d22932ccc",
+      "id": 1694894360867,
+      "name": "dfndfn",
+      "email": "hfjef@gmail.com",
+      "PhoneNo": "7878",
+      "Status": "active",
+      "JobType": "Permanent",
+      "role": "sds"
+    },
+    {
+      "_id": "b3bdb144-2b37-40f5-ab5e-3e3a6ef4b3a4",
+      "id": 1694896526255,
+      "name": "rahul sharma",
+      "email": "rahul.sharma@gmail.com",
+      "PhoneNo": "2112",
+      "Status": "active",
+      "JobType": "Full Time",
+      "role": "full stack developer"
+    },
+    {
+      "_id": "82860e99-9cd8-402f-a134-3c55dcaa77e7",
+      "id": 1694900196327,
+      "name": "Rahul sharma",
+      "email": "rahulsharma@gmail.com",
+      "PhoneNo": "787878",
+      "Status": "active",
+      "JobType": "Full Time",
+      "role": "Software Engineer"
+    },
+    {
+      "_id": "58d8f76d-2f74-4f59-b472-2af15eaaf6ba",
+      "id": 1694900291135,
+      "name": "Irshad",
+      "email": "irshad@gmail.com",
+      "PhoneNo": "8787878",
+      "Status": "active",
+      "JobType": "Full Time",
+      "role": "Frontend developer"
+    },
+    {
+      "_id": "4fefd64e-0e65-4bfb-820e-49e69ac52083",
+      "id": 1694901155028,
+      "name": "dhhsfh",
+      "email": "dhsjh@gmail.com",
+      "PhoneNo": "1211212",
+      "Status": "active",
+      "JobType": "Permanent",
+      "role": [
+        "Frontend developer",
+        "React JS"
+      ]
+    },
+    {
+      "_id": "5bfe40a9-f6c1-4a53-b660-67bff5f7cc79",
+      "id": 1696022872216,
+      "name": "Arshad Pathaan",
+      "email": "arshad@google.com",
+      "PhoneNo": "122127878",
+      "Status": "active",
+      "JobType": "Full Time",
+      "role": [
+        "CEO",
+        "Full stack developer"
+      ]
     }
   ]
 }
